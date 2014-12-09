@@ -9,23 +9,11 @@
 }
 
 body {
-    font-family: 'ProximaNova', serif;
     font-weight: 300;
     background: #F4F5F6;
-    overflow: hidden;
-    width: 300px;
+    font-family: 'Lato', sans-serif;
 }
 
 h1,h2,h3,h4,h5,h6 {
-    font-weight: 300;
-}
-
-a {
-    color: #57ACC5;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #57ACC5;
-    text-decoration: none;
+    font-family: 'Roboto Slab', serif;
 }
