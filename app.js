@@ -1,14 +1,56 @@
+var flash = require('connect-flash');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+
+
+var db = require('./models/db');
+var User = require('./models/User.js');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var user = require('./routes/user');
+var product = require('./routes/product');
+
+
+
+// Passport.js
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+
+passport.serializeUser(function(user, done) {
+    done(null, user.username);
+});
+
+passport.deserializeUser(function(id, done) {
+    User.findOne({username: id}, function(err, user) {
+        done(err, user);
+    });
+});
+
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        console.log(username, password);
+        User.findOne({ username: username }, function(err, user) {
+            if (err) { return done(err); }
+            if (!user) { return done(null, false); }
+            if (!user.verifyPassword(password)) { return done(null, false); }
+            return done(null, user);
+        });
+    }
+));
+
 
 var app = express();
+var myRedisStore = new RedisStore();
+var myCookieParser = cookieParser();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,11 +61,21 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(myCookieParser);
+app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(session({
+    key: 'lockhunt.sid',
+    store: myRedisStore,
+    secret: 'secret'
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/user', user);
+app.use('/product', product);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
