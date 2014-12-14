@@ -35,12 +35,31 @@ var productSchema = mongoose.Schema({
     price: {type: Number, min: 0, required: true},
     features: [featureSchema],
     images: [String],
+    type: {type: String, enum: ['product', 'category']},
     creator: {type: String, required: true},
     remainingQuantity: {type: Number, default: 0, min: 0},
     createdAt: {type: Date, default: Date.now}
 });
 
 productSchema.plugin(materializedPlugin);
+
+productSchema.statics.addProduct = function(product, categoryName, callback) {
+  var Product = mongoose.model('Product');
+  product.type = 'product';
+  var product = new Product(product);
+  this.findOne({name: categoryName}, function(err, category) {
+    if (err) return callback(err);
+    category.appendChild(product, callback);
+  })
+};
+
+productSchema.statics.getProductsByCategoryName = function(categoryName, callback) {
+  this.findOne({name: categoryName}, function(err, category) {
+    if (err) return callback(err);
+    if (!category) return callback('Category nor found.');
+    category.getChildren({condition: {type: 'product'}}, callback);
+  })
+};
 
 var Product = mongoose.model('Product', productSchema);
 
@@ -67,7 +86,8 @@ function addTestData() {
         body: '-',
         price: '0',
         images: ['/img/dummy.png'],
-        creator: 'admin'
+        creator: 'admin',
+        type: 'category'
     });
 
     return product;

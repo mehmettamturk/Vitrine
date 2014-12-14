@@ -28,7 +28,20 @@ router.get('/categories', function(req, res) {
 
 
 router.get('/all', function(req, res) {
-    Product.find({}, function(err, products) {
+    Product.find({type: 'product'}, function(err, products) {
+        if (err) {
+            console.log('Err: cannot get products list.', err);
+            return res.send(500).end();
+        }
+
+        res.json(products);
+    });
+});
+
+router.get('/category/:categoryName', function(req, res) {
+    var categoryName = req.params.categoryName;
+
+    Product.getProductsByCategoryName(categoryName, function(err, products) {
         if (err) {
             console.log('Err: cannot get products list.', err);
             return res.send(500).end();
@@ -40,6 +53,7 @@ router.get('/all', function(req, res) {
 
 
 router.post('/', ensureModerator, function(req, res) {
+    if (!req.body.categoryName) return res.json({err: 'Category name was not provided.'});
     if (!req.body.name) return res.json({err: 'Name was not provided.'});
     if (!req.body.displayName) return res.json({err: 'Display name was not provided.'});
     if (!req.body.description) return res.json({err: 'Description was not provided.'});
@@ -49,7 +63,7 @@ router.post('/', ensureModerator, function(req, res) {
     if (!req.body.images) return res.json({err: 'Images were not provided.'});
     if (!req.body.images.length) return res.json({err: 'Images array was empty.'});
 
-    var product = new Product({
+    Product.addProduct({
         name: req.body.name,
         displayName: req.body.displayName,
         description: req.body.description,
@@ -59,9 +73,7 @@ router.post('/', ensureModerator, function(req, res) {
         creator: req.user.username,
         creatorDisplayName: req.user.dispayName,
         remainingQuantity: req.body.quantity,
-    });
-
-    product.save(function(err, product) {
+    }, req.body.categoryName, function(err, product) {
         if (err) {
             console.log('Err: cannot get products list.', err);
             return res.send(500).end();
