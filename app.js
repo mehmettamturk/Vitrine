@@ -17,6 +17,7 @@ var routes = require('./routes/index');
 var user = require('./routes/user');
 var product = require('./routes/product');
 
+global.config = require('./config.json');
 
 
 // Passport.js
