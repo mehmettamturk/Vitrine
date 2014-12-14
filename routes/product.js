@@ -1,5 +1,6 @@
 var express = require('express');
 var Product = require('../models/Product.js');
+var CategoryTree = require('../models/CategoryTree.js');
 
 var router = express.Router();
 
@@ -18,6 +19,12 @@ function ensureModerator(req, res, next) {
 
     res.status(401).end();
 };
+
+
+router.get('/categories', function(req, res) {
+    var categories = CategoryTree.categories;
+    res.json(categories);
+});
 
 
 router.get('/all', function(req, res) {
