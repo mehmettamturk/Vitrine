@@ -57,7 +57,17 @@ productSchema.statics.getProductsByCategoryName = function(categoryName, callbac
   this.findOne({name: categoryName}, function(err, category) {
     if (err) return callback(err);
     if (!category) return callback('Category nor found.');
-    category.getChildren({condition: {type: 'product'}}, callback);
+    category.getChildren({
+      condition: {type: 'product'},
+      fields: {
+        _id: 0,
+        parentId: 0,
+        path: 0,
+        __v: 0,
+        _w: 0,
+        createdAt: 0
+      }
+    }, callback);
   })
 };
 
