@@ -1,0 +1,40 @@
+{
+    "name": "Root",
+    "children": [
+        {
+            "name": "Electronics",
+            "children": [
+                {
+                    "name": "Smart Phones",
+                    "children": []
+                },{
+                    "name": "Household Electronics",
+                    "children": []
+                },{
+                    "name": "Computers",
+                    "children": []
+                }
+            ]
+        },{
+            "name": "Fashion",
+            "children": []
+        },{
+            "name": "Sporting Goods",
+            "children": [
+                {
+                    "name": "Shoes",
+                    "children": []
+                },{
+                    "name": "T-shirts",
+                    "children": []
+                },{
+                    "name": "Swimming Suits",
+                    "children": []
+                }
+            ]
+        },{
+            "name": "Home & Gardening",
+            "children": []
+        }
+    ]
+}
