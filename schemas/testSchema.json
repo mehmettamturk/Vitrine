@@ -1,0 +1,51 @@
+{
+    "name": "root",
+    "displayName": "Root",
+    "children": [
+        {
+            "name": "electronics",
+            "displayName": "Electronics",
+            "children": [
+                {
+                    "name": "smart-phones",
+                    "displayName": "Smart Phones",
+                    "children": []
+                },{
+                    "name": "household-electronics",
+                    "displayName": "Household Electronics",
+                    "children": []
+                },{
+                    "name": "computers",
+                    "displayName": "Computers",
+                    "children": []
+                }
+            ]
+        },{
+            "name": "fashion",
+            "displayName": "Fashion",
+            "children": []
+        },{
+            "name": "sporting-goods",
+            "displayName": "Sporting Goods",
+            "children": [
+                {
+                    "name": "shoes",
+                    "displayName": "Shoes",
+                    "children": []
+                },{
+                    "name": "t-shirts",
+                    "displayName": "T-shirts",
+                    "children": []
+                },{
+                    "name": "swimming-suits",
+                    "displayName": "Swimming Suits",
+                    "children": []
+                }
+            ]
+        },{
+            "name": "home-gardening",
+            "displayName": "Home & Gardening",
+            "children": []
+        }
+    ]
+}
