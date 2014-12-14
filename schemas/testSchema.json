@@ -1,5 +1,5 @@
 {
-    "name": "Root",
+    "name": "root",
     "displayName": "Root",
     "children": [
         {
@@ -25,8 +25,8 @@
             "displayName": "Fashion",
             "children": []
         },{
-            "name": "Sporting Goods",
-            "displayName": "sporting-goods",
+            "name": "sporting-goods",
+            "displayName": "Sporting Goods",
             "children": [
                 {
                     "name": "shoes",
@@ -37,8 +37,8 @@
                     "displayName": "T-shirts",
                     "children": []
                 },{
-                    "name": "Swimming Suits",
-                    "displayName": "swimming-suits",
+                    "name": "swimming-suits",
+                    "displayName": "Swimming Suits",
                     "children": []
                 }
             ]
