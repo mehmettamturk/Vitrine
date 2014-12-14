@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    materializedPlugin = require('mongoose-materialized'),
     argv = require('optimist').argv;
 
 function titleValidator (v) {
@@ -30,6 +31,7 @@ var productSchema = mongoose.Schema({
     createdAt: {type: Date, default: Date.now}
 });
 
+productSchema.plugin(materializedPlugin);
 
 var Product = mongoose.model('Product', productSchema);
 
