@@ -1,4 +1,5 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    autoinc = require('mongoose-id-autoinc');
 
 var userSchema = mongoose.Schema({
     username: {type: String, unique: true},
@@ -12,5 +13,5 @@ userSchema.methods.verifyPassword = function(password) {
 };
 
 var User = mongoose.model('User', userSchema);
-
+userSchema.plugin(autoinc.plugin, { model: 'User', field: '_id', start: 0, step: 1 });
 module.exports = User;
