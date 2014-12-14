@@ -12,11 +12,17 @@ function bodyValidator (v) {
   return v.length < 5000;
 };
 
+var featureSchema = mongoose.Schema({
+    type: {type: String, enum: ['enum', 'number', 'bool']},
+    value: mongoose.Schema.Types.Mixed
+}, {_id: false});
+
 var productSchema = mongoose.Schema({
     title: {type: String, validate: [titleValidator, 'Title is too long.'], required: true},
     description: {type: String, validate: [descriptionValidator, 'Description is too long.'], required: true},
     body: {type: String, validate: [bodyValidator, 'Body is too long.'], required: true},
     price: {type: Number, min: 0, required: true},
+    features: [featureSchema],
     images: [String],
     creator: {type: String, required: true},
     remainingQuantity: {type: Number, default: 0, min: 0},
