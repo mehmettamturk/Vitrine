@@ -3,6 +3,12 @@ Vitrine
 
 NodeJS, Mongo and AngularJS Based Ecommerce Application.
 
+# Initialization
+By default, the repository contains a test schema for test purposes. In order to setup the product collection for testing call the server executable with the `--initCollection` parameter.
+
+```bin/www --initCollection```
+
+*Important: * Running the server with `initCollection` is necessary only once, otherwise the product collections will be wiped over and over again.
 
 # API Docs
 ## Get category tree:
