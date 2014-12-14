@@ -40,15 +40,18 @@ router.get('/all', function(req, res) {
 
 
 router.post('/', ensureModerator, function(req, res) {
-    if (!req.body.title) return res.json({err: 'Title was not provided.'});
+    if (!req.body.name) return res.json({err: 'Name was not provided.'});
+    if (!req.body.displayName) return res.json({err: 'Display name was not provided.'});
     if (!req.body.description) return res.json({err: 'Description was not provided.'});
     if (!req.body.body) return res.json({err: 'Body was not provided.'});
     if (!req.body.price) return res.json({err: 'Price was not provided.'});
+    if (!req.body.quantity) return res.json({err: 'Quantity was not provided.'});
     if (!req.body.images) return res.json({err: 'Images were not provided.'});
     if (!req.body.images.length) return res.json({err: 'Images array was empty.'});
 
     var product = new Product({
-        title: req.body.title,
+        name: req.body.name,
+        displayName: req.body.displayName,
         description: req.body.description,
         body: req.body.body,
         price: req.body.price,
