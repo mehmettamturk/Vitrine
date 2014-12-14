@@ -1,4 +1,5 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    argv = require('optimist').argv;
 
 function titleValidator (v) {
   return v.length < 50;
