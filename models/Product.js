@@ -1,15 +1,15 @@
 var mongoose = require('mongoose');
 
 function titleValidator (v) {
-  return v.length > 50;
+  return v.length < 50;
 };
 
 function descriptionValidator (v) {
-  return v.length > 100;
+  return v.length < 100;
 };
 
 function bodyValidator (v) {
-  return v.length > 5000;
+  return v.length < 5000;
 };
 
 var productSchema = mongoose.Schema({
