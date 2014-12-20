@@ -41,8 +41,10 @@ passport.use(new LocalStrategy(
         User.findOne({ username: username }, function(err, user) {
             if (err) { return done(err); }
             if (!user) { return done(null, false); }
-            if (!user.verifyPassword(password)) { return done(null, false); }
-            return done(null, user);
+            user.verifyPassword(password, function(err, authentic) {
+                if (err || !authentic) return done(null, false);
+                else done(null, user);
+            });
         });
     }
 ));

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-    autoinc = require('mongoose-id-autoinc');
+    autoinc = require('mongoose-id-autoinc'),
+    hash = require('./../services/hash');
 
 var userSchema = mongoose.Schema({
     username: {type: String, unique: true},
@@ -8,8 +9,12 @@ var userSchema = mongoose.Schema({
     permissions: [String]
 });
 
-userSchema.methods.verifyPassword = function(password) {
-    return this.password == password;
+userSchema.methods.verifyPassword = function(password, callback) {
+    var that = this;
+    hash(password, function(err, hash) {
+        if (err) callback(err);
+        callback(null, that.password == hash);
+    });
 };
 
 var User = mongoose.model('User', userSchema);
