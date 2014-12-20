@@ -67,7 +67,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(myCookieParser);
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(session({
-    key: 'lockhunt.sid',
+    key: 'vitrine.sid',
     store: myRedisStore,
     secret: 'secret'
 }));
