@@ -32,16 +32,47 @@ router.get('/all', function(req, res) {
     });
 });
 
-router.get('/category/:categoryName', function(req, res) {
-    var categoryName = req.params.categoryName;
 
-    Product.getProductsByCategoryName(categoryName, function(err, products) {
+router.get('/:productName', function(req, res) {
+    var name = req.params.productName;
+
+    Product.find({name: name}, function(err, product) {
         if (err) {
-            console.log('Err: cannot get products list.', err);
+            console.log('Err: cannot find product.', err);
             return res.send(500).end();
         }
 
-        res.json(products);
+        res.json(product);
+    });
+});
+
+
+router.put('/:productName', function(req, res) {
+    var name = req.params.productName;
+
+    Product.find({name: name}, function(err, product) {
+        if (err) {
+            console.log('Err: cannot find product.', err);
+            return res.send(500).end();
+        }
+
+        req.body.name && product.name = req.body.name;
+        req.body.displayName && product.displayName = req.body.displayName;
+        req.body.description && product.description = req.body.description;
+        req.body.body && product.body = req.body.body;
+        req.body.price && product.price = req.body.price;
+        req.body.features && product.features = req.body.features;
+        req.body.images && product.images = req.body.images;
+        req.body.remainingQuantity && product.remainingQuantity = req.body.remainingQuantity;
+
+        product.save(function(err) {
+            if (err) {
+                console.log('Err: cannot update product.', err);
+                return res.send(500).end();
+            }
+
+            res.json(product);
+        });
     });
 });
 
