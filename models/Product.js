@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 
 
 function nameValidator (v) {
-  return v && v.length < 30;
+  return v && v.length < 30 && v.indexOf(' ') == -1;
 };
 
 function displayNameValidator (v) {
