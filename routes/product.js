@@ -21,12 +21,6 @@ function ensureModerator(req, res, next) {
 };
 
 
-router.get('/categories', function(req, res) {
-    var categories = CategoryTree.categories;
-    res.json(categories);
-});
-
-
 router.get('/all', function(req, res) {
     Product.find({type: 'product'}, function(err, products) {
         if (err) {

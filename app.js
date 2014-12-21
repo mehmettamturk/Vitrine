@@ -1,3 +1,5 @@
+global.config = require('./config.json');
+
 var flash = require('connect-flash');
 var express = require('express');
 var path = require('path');
@@ -16,8 +18,9 @@ var User = require('./models/User.js');
 var routes = require('./routes/index');
 var user = require('./routes/user');
 var product = require('./routes/product');
+var category = require('./routes/category');
 
-global.config = require('./config.json');
+
 
 
 // Passport.js
@@ -79,6 +82,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/user', user);
 app.use('/product', product);
+app.use('/category', category);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
