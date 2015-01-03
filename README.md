@@ -14,7 +14,7 @@ By default, the repository contains a test schema for test purposes. In order to
 ## Get category tree:
 Category tree can be retrieved via this API. This API is very important for the FE application. At initialization, FE application must get category tree in order to display the category list.
 
-GET `/product/categories`
+GET `/category/list`
 
 ####Example response:
 ```
@@ -57,7 +57,7 @@ GET `/product/categories`
 ## Get products by category name
 You can get all product within a given category-name using this API. The reponse contains all products with the given category name.
 
-GET `/product/category/:categoryName`
+GET `/category/:categoryName`
 
 ####Example response:
 ```
@@ -88,6 +88,42 @@ POST `/product`
 ```
 {
     "categoryName": "categoryName",
+    "name": "unique-name-for-the-product",
+    "displayName": "White T-Shirt",
+    "description": "Short description text",
+    "body": "Long body description text",
+    "price": 123,
+    "quantity": 100,
+    "images": ["/img/image.png"]
+}
+```
+
+## Edit product
+This api is used for modifying the product data. You can provide following fieds.
+
+PUT `/product/:productName`
+
+####Data:
+```
+{
+    "name": "unique-name-for-the-product",
+    "displayName": "White T-Shirt",
+    "description": "Short description text",
+    "body": "Long body description text",
+    "price": 123,
+    "quantity": 100,
+    "images": ["/img/image.png"]
+}
+```
+
+## Get product
+This api is used for obtaining all the information of a product.
+
+GET `/product/:productName`
+
+####Example response:
+```
+{
     "name": "unique-name-for-the-product",
     "displayName": "White T-Shirt",
     "description": "Short description text",
