@@ -56,7 +56,7 @@ productSchema.statics.addProduct = function(product, categoryName, callback) {
 productSchema.statics.getProductsByCategoryName = function(categoryName, callback) {
   this.findOne({name: categoryName}, function(err, category) {
     if (err) return callback(err);
-    if (!category) return callback('Category nor found.');
+    if (!category) return callback('Category not found.');
     category.getChildren({
       condition: {type: 'product'},
       fields: {
