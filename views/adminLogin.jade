@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='/css/reset.css')
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/css/bootstrap-theme.min.css')
+        link(rel='stylesheet', href='/admin/css/admin.css')
+        link(href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic&subset=latin,latin-ext', rel='stylesheet', type='text/css')
+        link(href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300&subset=latin,latin-ext', rel='stylesheet', type='text/css')
+    body
+        form(action='/user/login', method='post')
+            div.loginBox
+                div
+                    h3 Login to Vitrine
+                div
+                    input(id='email', type='text', value='', placeholder='Username', name='username')
+                div
+                    input(id='password', type='password', value='', name='password')
+                div
+                    input(type='submit', value='Login')
+

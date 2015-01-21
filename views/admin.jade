@@ -1,0 +1,47 @@
+doctype html
+html(ng-app='adminPanel')
+  head
+    title= title
+    link(rel='stylesheet', href='/css/reset.css')
+    link(rel='stylesheet', href='/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/admin/css/admin.css')
+    link(rel='icon', href='/favicon.ico', type='image/x-icon')
+    link(rel='shortcut icon', href='/favicon.ico', type='image/x-icon')
+    link(href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic&subset=latin,latin-ext', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300&subset=latin,latin-ext', rel='stylesheet', type='text/css')
+    link(href='//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', rel='stylesheet')
+  body
+    nav.menu
+      div.logo VITRINE
+      ul
+        li
+          a(href="#/")
+            span.fa.fa-home
+            | DASHBOARD
+        li
+          a(href="#/categories")
+            span.fa.fa-table
+            | CATEGORIES
+        li
+          a(href="#/products")
+            span.fa.fa-cubes
+            |PRODUCTS
+        li
+          a(href="#/users")
+            span.fa.fa-users
+            | USERS
+        li
+          a(href="#/sales")
+            span.fa.fa-cc-visa
+            | SALES
+    div.view(ng-view)
+    script(src='/lib/angular.min.js')
+    script(src='/lib/ui-bootstrap-custom-0.11.2.min.js')
+    script(src='/lib/ui-bootstrap-custom-tpls-0.11.2.min.js')
+    script(src='/lib/angular-route.min.js')
+    script(src='/lib/angular-sanitize.js')
+    script(src='/lib/angular-animate.min.js')
+    script(src='/admin/js/app.js')
+    script(src='/admin/js/controllers/AdminController.js')
+    script(src='/admin/js/directives/FileUpload.js')

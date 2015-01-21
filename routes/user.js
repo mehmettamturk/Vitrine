@@ -105,8 +105,9 @@ router.get('/confirmation/:token', function(req, res) {
 
 router.post('/login',
     passport.authenticate('local', { failureRedirect: '/user/loginFailed' }),
-    function(req, res) {
-        res.json(req.user);
+    function(req, res, next) {
+        //res.json(req.user);
+        res.redirect('/admin');
     });
 
 router.get('/loginFailed', function(req, res) {
