@@ -1,9 +1,14 @@
 var express = require('express');
 var Product = require('../models/Product.js');
 var CategoryTree = require('../models/CategoryTree.js');
+var fs = require('fs');
+var multer  = require('multer');
 
 var router = express.Router();
 
+router.use(multer({
+    dest: '../preserved/uploads/product/'
+}));
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
@@ -85,8 +90,8 @@ router.post('/', ensureModerator, function(req, res) {
     if (!req.body.body) return res.json({err: 'Body was not provided.'});
     if (!req.body.price) return res.json({err: 'Price was not provided.'});
     if (!req.body.quantity) return res.json({err: 'Quantity was not provided.'});
-    if (!req.body.images) return res.json({err: 'Images were not provided.'});
-    if (!req.body.images.length) return res.json({err: 'Images array was empty.'});
+    //if (!req.body.images) return res.json({err: 'Images were not provided.'});
+    //if (!req.body.images.length) return res.json({err: 'Images array was empty.'});
 
     Product.addProduct({
         name: req.body.name,
@@ -108,5 +113,58 @@ router.post('/', ensureModerator, function(req, res) {
     });
 });
 
+router.get('/image/:imageName', function(req, res) {
+    var imageDir = '../preserved/uploads/product/' + req.params.imageName + '.jpg';
+    fs.readFile(imageDir, function(err, image) {
+        if (err && err.code == 'ENOENT') {
+            var img = require('fs').readFileSync('./no_image.png');
+            res.writeHead(200, {'Content-Type': 'image/png' });
+            return res.end(img, 'binary');
+        } else
+            res.end(image, 'binary');
+    });
+
+});
+
+router.post('/uploadImage/:productId', function(req, res) {
+    var file = req.files.data;
+    if (!file || !fs.existsSync(file.path))
+        return res.status(400).send({ error: 'Upload failed.' });
+
+    if (file.size === 0) {
+        fs.unlink(file.path);
+        return res.status(412).send({ error: 'Upload failed.' });
+    }
+
+    if (file.size > 1024 * 1024) {
+        fs.unlink(file.path);
+        return res.status(413).send({ error: 'You can not upload an image file larger than 1 megabytes.' });
+    }
+
+    var sourceDir = '../preserved/uploads/product/' + file.name;
+    var newFileName = req.params.productId + '_' + new Date().getTime();
+    var imageDir = '../preserved/uploads/product/' + newFileName + '.jpg';
+
+    fs.rename(sourceDir, imageDir, function(err) {
+        if (err) return res.status(500).send({ error: 'Upload image failed.' });
+
+        Product.findOne({_id: req.params.productId}, function(err, product) {
+            if (err) return res.status(500).send({ error: 'Upload image failed.' });
+            if (!product.images.length)
+                product.images = [];
+
+            product.images.push(newFileName);
+            product.save(function() {
+                console.log(newFileName)
+                res.status(200).send({photoPath: newFileName});
+            });
+        });
+    });
+});
+
+
+router.get('/uploadImage/:productId', function(req, res) {
+
+});
 
 module.exports = router;
