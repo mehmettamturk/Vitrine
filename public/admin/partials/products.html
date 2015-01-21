@@ -1,0 +1,79 @@
+<div class="page products">
+    <div class="header"> Products </div>
+    <div class="content">
+        <table>
+            <tr>
+                <th> Name </th>
+                <th> Display Name </th>
+                <th> Description </th>
+                <th> Price </th>
+                <th> Images </th>
+                <th> Quantity </th>
+                <th>  </th>
+            </tr>
+            <tr ng-repeat="product in products" ng-show="products.length > 0">
+                <td> {{product.name}} </td>
+                <td> {{product.displayName}} </td>
+                <td> {{product.description}} </td>
+                <td> {{product.price}} </td>
+                <td>
+                    <img class="productImage" ng-repeat="image in product.images" ng-src="/product/image/{{image}}"/>
+                </td>
+                <td> {{product.remainingQuantity}} </td>
+                <td>
+                    <button ng-click="editProduct(product);" class="edit"> <span class="fa fa-edit"></span> </button>
+                    <button ng-click="removeProduct(product);" class="remove"> <span class="fa fa-remove"></span> </button>
+                    <div class="button new upload" ng-click="uploadIndex = $index">
+                        Upload Image
+                        <div file-upload class="imageUpload" event-name="productImageUpload" error-event="imageUploadError" upload-url="/product/uploadImage/{{product._id}}" accepted-files="image/*"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-show="!products.length">
+                <td colspan="7"> No product </td>
+            </tr>
+        </table>
+        <button ng-click="showEditBox = true"> <span class="fa fa-plus"></span> Add New </button>
+
+        <div id="editBox" ng-show="showEditBox">
+            <div class="closeButton fa fa-remove" ng-click="showEditBox = false"></div>
+            <div class="newItem">
+                <p> Add New Product </p>
+                <div class="formItem">
+                    <label> Name </label>
+                    <input type="text" placeholder="Product Name" ng-model="currentProduct.name" required/>
+                </div>
+                <div class="formItem">
+                    <label> Display Name </label>
+                    <input type="text" placeholder="Product Display Name" ng-model="currentProduct.displayName" required/>
+                </div>
+                <div class="formItem">
+                    <label> Description </label>
+                    <input type="text" placeholder="Product Description" ng-model="currentProduct.description" required/>
+                </div>
+                <div class="formItem">
+                    <label> Body </label>
+                    <textarea placeholder="Product Body" ng-model="currentProduct.body" required></textarea>
+                </div>
+                <div class="formItem">
+                    <label> Price </label>
+                    <input type="text" placeholder="Product Price" ng-model="currentProduct.price" required/>
+                </div>
+                <div class="formItem">
+                    <label> Quantity </label>
+                    <input type="text" placeholder="Product Quantity" ng-model="currentProduct.quantity" required/>
+                </div>
+                <div class="formItem">
+                    <label> Main Category </label>
+                    <select ng-model="currentProduct.mainCategory" ng-options="category.name for category in categories"></select>
+                </div>
+                <div class="formItem">
+                    <label> Sub Category </label>
+                    <select ng-model="currentProduct.subCategory" ng-options="category.name for category in currentProduct.mainCategory.children"></select>
+                </div>
+                <button ng-click="addNewProduct()"> <span class="fa fa-plus"></span> Add New </button>
+                <button ng-click="showEditBox = false" class="cancel"> Cancel </button>
+            </div>
+        </div>
+    </div>
+</div>
