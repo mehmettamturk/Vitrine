@@ -17,3 +17,32 @@ body {
 h1,h2,h3,h4,h5,h6 {
     font-family: 'Roboto Slab', serif;
 }
+
+.product {
+    width: 300px;
+    margin-right: 30px;
+    background: #ffffff;
+    float: left;
+    padding-bottom: 30px;
+}
+
+.product:hover {
+    box-shadow: 0 0 1px 1px rgba(0,0,0,.2);
+}
+
+.product .productImage {
+    width: 300px;
+    height: 200px;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+}
+
+.product .productName {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px;
+    text-align: center;
+}
+
+.product .productPrice {
+    text-align: center;
+}

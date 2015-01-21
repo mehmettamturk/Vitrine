@@ -1,20 +1,9 @@
 <h1> Welcome to Vitrine. </h1>
 
-<p>
-    Lorem ipsum dolor sit amet, nam pertinax euripidis argumentum ei, an vim causae suscipit definiebas. Denique propriae appareat sit ex, cu eum illud animal appetere. Est eius graecis invenire at, officiis lucilius duo ad. At mel epicurei interesset, ei sea copiosae salutatus persecuti, at unum labores dolores eam. Mel cu wisi noster.
-</p>
-<p>
-    Ad quo nullam graeco scriptorem. Quot accommodare ea nec, ullum blandit voluptatum eam ex, impetus expetendis et vel. Ad eos corpora officiis, eu saepe eleifend theophrastus eum. In animal feugait intellegebat vis, duo dico quodsi adipisci et. Vide pertinax quo te.
-</p>
-
-<h2> Welcome to Vitrine. </h2>
-
-<p>
-    Has te ullum impedit tibique, suas laboramus reformidans id vel, prima mnesarchum repudiandae eu duo. Tempor feugiat offendit ut usu, amet eros nec no. Lobortis inciderint usu eu, id qui copiosae splendide intellegam. Ei mea nulla aliquam, et per quod meis honestatis. Nostrum epicurei accusata his eu.
-</p>
-
-<h3> Welcome to Vitrine. </h3>
-
-<p>
-    Id vel labore ullamcorper, at prompta sensibus eos. Ei pro nostrud assentior, ad vis illud inani diceret, nam ex albucius tacimates. Quis ludus gubergren ei quo. Te sit dicat semper, cum quot dicta fastidii no. Ex vis invidunt dissentias appellantur.
-</p>
+<div class="products">
+    <div class="product" ng-repeat="product in products">
+        <img class="productImage" ng-src="/product/image/{{product.images[0]}}"/>
+        <div class="productName" ng-bind="product.name"></div>
+        <div class="productPrice"> {{ product.price }} $ </div>
+    </div>
+</div>
